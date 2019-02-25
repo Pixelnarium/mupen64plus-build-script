@@ -24,6 +24,7 @@ do
   cd "$STARTDIR"
 done
 
+cp mupen64plus-input-sdl/data/* "$TARGETDIR"
 cp mupen64plus-core/data/* "$TARGETDIR"
 
 git clone https://github.com/m64p/mupen64plus-gui.git || true
