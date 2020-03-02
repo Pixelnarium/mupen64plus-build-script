@@ -10,7 +10,7 @@ STARTDIR=`pwd`
 TARGETDIR="$STARTDIR/release"
 mkdir -p release
 
-MPROJECTS=(mupen64plus-core mupen64plus-input-sdl mupen64plus-audio-sdl mupen64plus-rsp-cxd4 mupen64plus-rsp-hle)
+MPROJECTS=(mupen64plus-core mupen64plus-input-sdl mupen64plus-audio-sdl mupen64plus-rsp-hle)
 
 for p in "${MPROJECTS[@]}"
 do
@@ -27,16 +27,22 @@ done
 cp mupen64plus-input-sdl/data/* "$TARGETDIR"
 cp mupen64plus-core/data/* "$TARGETDIR"
 
-git clone https://github.com/m64p/mupen64plus-gui.git || true
-cd mupen64plus-gui
+git clone https://github.com/mupen64plus/mupen64plus-rsp-cxd4
+cd mupen64plus-rsp-cxd4
 git pull
-mkdir -p build
-cd build
-qmake ../mupen64plus-gui.pro
+cd projects/unix
 make clean
-make -j`nproc`
-mv mupen64plus-gui "$TARGETDIR"
+make -j`nproc` all V=1 SHAREDIR="."
+mv *.so* "$TARGETDIR"
+cd "$STARTDIR"
 
+git clone https://github.com/mupen64plus/mupen64plus-ui-console
+cd mupen64plus-ui-console
+git pull
+cd projects/unix
+make clean
+make -j`nproc` all V=1 SHAREDIR="." PREFIX="." LIBDIR="." PLUGINDIR="."
+mv mupen64plus "$TARGETDIR"
 cd "$STARTDIR"
 
 git clone https://github.com/ata4/angrylion-rdp-plus.git || true

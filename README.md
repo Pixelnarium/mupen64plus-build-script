@@ -1,6 +1,6 @@
-# m64-build-script
+# mupen64plus-build-script
 
-A simple bash script for building a complete Mupen64Plus+GLideN64+Angrylion RDP Plus+mupen64plus-gui package.
+A simple bash script for building a complete Mupen64Plus+GLideN64+Angrylion RDP Plus package.
 
 **Dependencies**
 
@@ -8,7 +8,6 @@ A simple bash script for building a complete Mupen64Plus+GLideN64+Angrylion RDP 
   - libpng
   - freetype 2
   - zlib
-  - Qt5
   - libsamplerate
   - libspeex
   - nasm
