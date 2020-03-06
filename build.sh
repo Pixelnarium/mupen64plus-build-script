@@ -10,7 +10,7 @@ STARTDIR=`pwd`
 TARGETDIR="$STARTDIR/release"
 mkdir -p release
 
-MPROJECTS=(mupen64plus-core mupen64plus-input-sdl mupen64plus-audio-sdl mupen64plus-rsp-hle)
+MPROJECTS=(mupen64plus-core mupen64plus-input-sdl mupen64plus-audio-sdl mupen64plus-rsp-hle mupen64plus-rsp-cxd4)
 
 for p in "${MPROJECTS[@]}"
 do
@@ -19,22 +19,13 @@ do
   git pull
   cd projects/unix
   make clean
-  make -j`nproc` all V=1 SHAREDIR="."
+  make -j`nproc` all V=1 SHAREDIR="." NEW_DYNAREC=1
   mv *.so* "$TARGETDIR"
   cd "$STARTDIR"
 done
 
 cp mupen64plus-input-sdl/data/* "$TARGETDIR"
 cp mupen64plus-core/data/* "$TARGETDIR"
-
-git clone https://github.com/mupen64plus/mupen64plus-rsp-cxd4
-cd mupen64plus-rsp-cxd4
-git pull
-cd projects/unix
-make clean
-make -j`nproc` all V=1 SHAREDIR="."
-mv *.so* "$TARGETDIR"
-cd "$STARTDIR"
 
 git clone https://github.com/mupen64plus/mupen64plus-ui-console
 cd mupen64plus-ui-console
